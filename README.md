@@ -12,3 +12,5 @@ alacritty
 Add 00-keyboard.conf and 50-mouse-acceleration.conf to /etc/X11/xorg.conf.d/
 
 Add getty@tty1.service.d to /etc/systemd/system/ and dont forget change !!!YOURLOGIN!!! in autologin.conf to your autologin login
+
+will be updated
