@@ -189,7 +189,7 @@
   # Default colors
    primary:
      background: '#282a36'
-     foreground: '#ff92df'
+     foreground: '#f8f8f2'
 
     # Bright and dim foreground colors
     #
@@ -277,7 +277,7 @@
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
    selection:
-     text: CellBackground
+     text: CellForeground
      background: '#44475a'
 
   # Normal colors
@@ -288,7 +288,7 @@
      yellow:  '#f1fa8c'
      blue:    '#bd93f9'
      magenta: '#ff79c6'
-     cyan:    '#5be6fd'
+     cyan:    '#8be9fd'
      white:   '#f8f8f2'
 
   # Bright colors
