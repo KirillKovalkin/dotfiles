@@ -11,6 +11,10 @@ fi
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Set default editor
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -106,6 +110,15 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Add pytest alias
+alias pytest='python -m pytest'
+
+# Add ipython alias
+alias ipython='python -m IPython'
+
+# Change ls to lsd
+alias ls='lsd'
 
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   exec startx
