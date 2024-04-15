@@ -45,7 +45,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/themes/default/theme.lua")
+beautiful.init("/home/kirill/.config/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -244,7 +244,10 @@ globalkeys = gears.table.join(
 
     awful.key({},            "Print",     function () awful.spawn("flameshot gui") end ),
 
+    awful.key({ modkey,           }, "F1",     function () awful.spawn("code") end ),
     awful.key({ modkey,           }, "F2",     function () awful.spawn("google-chrome-stable") end ),
+    awful.key({ modkey,           }, "F3",     function () awful.spawn("telegram-desktop") end ),
+    awful.key({ modkey,           }, "F2",     function () awful.spawn("steam") end ),
 
 
     awful.key({ modkey,           }, "j",
