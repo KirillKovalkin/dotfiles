@@ -14,6 +14,11 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+
+-- Add widgets
+local logout_menu_widget = require("widgets.logout-menu-widget.logout-menu")
+local calendar_widget = require("widgets.calendar-widget.calendar")
+
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -109,6 +114,20 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock()
 
+local cw = calendar_widget({
+    theme = 'naughty',
+    placement = 'top_right',
+    start_sunday = false,
+    radius = 8,
+-- with customized next/previous (see table above)
+    previous_month_button = 1,
+    next_month_button = 3,
+})
+mytextclock:connect_signal("button::press",
+    function(_, _, _, button)
+        if button == 1 then cw.toggle() end
+    end)
+
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
@@ -169,7 +188,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "   🧑‍💻   ", "   🌐   ", "   💬   ", "   🎮   " }, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -201,19 +220,19 @@ awful.screen.connect_for_each_screen(function(s)
     -- Add widgets to the wibox
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
+        expand = "none",
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
+            s.mytasklist,
             s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
+            s.mytaglist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             mykeyboardlayout,
             wibox.widget.systray(),
             mytextclock,
-            s.mylayoutbox,
+            logout_menu_widget(),
         },
     }
 end)
@@ -248,7 +267,6 @@ globalkeys = gears.table.join(
     awful.key({ modkey,           }, "F2",     function () awful.spawn("google-chrome-stable") end ),
     awful.key({ modkey,           }, "F3",     function () awful.spawn("telegram-desktop") end ),
     awful.key({ modkey,           }, "F4",     function () awful.spawn("steam") end ),
-
 
     awful.key({ modkey,           }, "j",
         function ()
