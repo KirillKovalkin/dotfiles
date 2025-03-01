@@ -183,12 +183,33 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+-- Add icon path
+local icon_dir = gears.filesystem.get_configuration_dir() .. "icons/"
+
+-- Add tags name
+
+local tags = {
+    { name = "dev", icon = icon_dir .. "dev.svg" },  
+    { name = "web", icon = icon_dir .. "web.svg" },  
+    { name = "chat", icon = icon_dir .. "chat.svg" }, 
+    { name = "game", icon = icon_dir .. "games.svg" }, 
+    { name = "media", icon = icon_dir .. "media.svg" },
+}
+
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "   🧑‍💻   ", "   🌐   ", "   💬   ", "   🎮   " }, s, awful.layout.layouts[1])
+
+for i, tag in ipairs(tags) do
+    awful.tag.add(tag.name, {
+        icon = tag.icon,
+        layout = awful.layout.layouts[1],
+        screen = s,
+        selected = i == 1 -- Первый тег выбран по умолчанию
+    })
+end
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -204,7 +225,32 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytaglist = awful.widget.taglist {
         screen  = s,
         filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
+        buttons = taglist_buttons,
+        widget_template = {
+            {
+                {
+                    {
+                        id     = "icon_role",
+                        widget = wibox.widget.imagebox,
+                        forced_width = 16,
+                        forced_height = 16,
+                    },
+                    margins = 2,
+                    widget  = wibox.container.margin,
+                },
+                left   = 15,
+                right  = 15,
+                widget = wibox.container.margin,
+            },
+            id     = "background_role",
+            widget = wibox.container.background,
+            create_callback = function(self, tag, index, tags)
+                self:get_children_by_id("icon_role")[1].image = tag.icon
+            end,
+            update_callback = function(self, tag, index, tags)
+                self:get_children_by_id("icon_role")[1].image = tag.icon
+            end,
+        },
     }
 
     -- Create a tasklist widget
