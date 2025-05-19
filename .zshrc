@@ -114,9 +114,6 @@ source $ZSH/oh-my-zsh.sh
 # Add pytest alias
 alias pytest='python -m pytest'
 
-# Add ipython alias
-alias ipython='python -m IPython'
-
 # Change ls to lsd
 alias ls='lsd'
 
