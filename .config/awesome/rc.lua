@@ -311,7 +311,7 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey,           }, "F1",     function () awful.spawn("code") end ),
     awful.key({ modkey,           }, "F2",     function () awful.spawn("google-chrome-stable") end ),
-    awful.key({ modkey,           }, "F3",     function () awful.spawn("telegram-desktop") end ),
+    awful.key({ modkey,           }, "F3",     function () awful.spawn("Telegram") end ),
     awful.key({ modkey,           }, "F4",     function () awful.spawn("steam") end ),
 
     awful.key({ modkey,           }, "j",
