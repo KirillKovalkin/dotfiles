@@ -120,9 +120,5 @@ alias ls='lsd'
 # Run pip update packages
 alias pip_update='echo "Checking for updates for installed pip libraries..."; outdated_packages=$(pip list --outdated --format=columns); if [ -z "$outdated_packages" ]; then echo "All pip libraries are up to date. No updates available."; else echo "Found outdated libraries:"; echo "$outdated_packages"; echo "Updating outdated libraries..."; pip list --outdated | awk '"'"'NR>2{print $1}'"'"' | xargs pip install --upgrade --break-system-packages; echo "Update completed."; fi'
 
-if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
-  exec startx
-fi
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
